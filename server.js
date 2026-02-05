@@ -144,6 +144,10 @@ app.get('/api/jobs/:id', (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`StressPro Backend running on http://localhost:${PORT}`);
-});
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`StressPro Backend running on http://localhost:${PORT}`);
+    });
+}
+
+module.exports = app;
