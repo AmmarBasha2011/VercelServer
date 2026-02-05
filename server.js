@@ -10,6 +10,14 @@ app.use(express.json());
 
 const jobs = {};
 
+app.get('/', (req, res) => {
+    res.json({ message: "StressPro Backend is running" });
+});
+
+app.get('/api', (req, res) => {
+    res.json({ status: "ok", message: "API is reachable" });
+});
+
 // Rotating User Agents
 const USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -141,6 +149,14 @@ app.get('/api/jobs/:id', (req, res) => {
         newResults: newResults,
         error: job.error,
         allResults: job.status === 'COMPLETED' ? job.results : undefined
+    });
+});
+
+app.use((req, res) => {
+    res.status(404).json({
+        error: "Not Found",
+        message: `Path ${req.path} not found on this server`,
+        method: req.method
     });
 });
 
